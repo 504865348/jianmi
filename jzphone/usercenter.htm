@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+
+<div id='wx_pic' style='margin: 0 auto; display: none;'>
+   <img src="share.jpg" />
+</div>
+<xbasehref="/"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">    
+<meta http-equiv="keywords" content="兼职,兼职么,大学生兼职网,兼职神器">
+<meta http-equiv="description" content="兼职么（jzme.cn），一个专为大学生服务的兼职平台！">
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "hm.js-e04fb976b022595f824c4a1ebb93db00"/*tpa=http://hm.baidu.com/hm.js?e04fb976b022595f824c4a1ebb93db00*/;
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>	
+<script type="text/javascript">
+var basePath = '/';
+</script>
+<link rel='icon shortcut' href='favicon.ico' />
+<link rel="stylesheet" href="common.css" type="text/css"/>
+<link rel="stylesheet" href="style.css" type="text/css"/>
+<script type="text/javascript" src="jquery.1.10.0.js-var=1440769219942"></script>
+<script type="text/javascript" src="global.js-var=1440769219942"></script>
+<script type="text/javascript" src="history.js-var=1440769219942" ></script>
+	<title>我的</title>
+</head>
+<body>
+	<a class="goback" href="index.htm"> <span class="back dis"
+		onclick="myhistory.back()"></span>
+	</a>
+
+	<a class="myPhoto p15 clearfix tc"
+		href="login.htm"> <img id="headImage"
+					src="avatar.png-var=1440769280884.png" 
+					class="fc" width="60" />
+			<div class="info">
+			<h3 class="f14 mt10 link-black" id="trueNameLabel">未登录</h3>
+			<div class="f12 link-black">登录后 马上使用兼职么</div>
+		</div>
+	</a>
+	<div class="add-his">
+		<ul>
+			<li><a href="login.htm" class="prejudging"> <img
+					class="wallet"
+					src="c3.png-var=1440769280884.png"/>
+					<i id="sup5">￥0<span>我的钱包</span></i>
+			</a></li>
+			<li><a href="login.htm" class="prejudging"> <img
+					class="wallet"
+					src="c4.png-var=1440769280884.png" />
+					<i id="sup5"
+					style="color:;">0<span>我的消息</span></i>
+			</a></li>
+
+		</ul>
+	</div>
+
+	<div class="myMenu mt15 b_tb">
+		<ul>
+			<li class="mm1"><a href="login.htm"
+				class="prejudging"> <i><img
+						src="mywork.png-var=1440769280884.png" /></i>我的工作
+			</a></li>
+			<li class="mm1"><a href="login.htm" 
+				class="prejudging"> <i><img
+						src="myEvaluation.png-var=1440769280884.png" /></i>收到的评价
+			</a></li>
+			<li class="mm1"><a href="login.htm" 
+				class="prejudging"> <i><img
+						src="mySalary.png-var=1440769280884.png"  /></i>我的工资单
+			</a></li>
+			<li class="mm1"><a href="login.htm" 
+				class="prejudging"> <i><img
+						src="myAsk.png-var=1440769280884.png"  /></i>我的咨询
+			</a></li>
+			</ul>
+	</div>
+	<div class="myMenu mt15 b_tb">
+		<ul>
+			<li class="mm2"><a href="setting.htm"
+				class="prejudging"> <i><img
+						src="setbtn.png-var=1440769280884.png" /></i>设置
+			</a></li>
+		</ul>
+	</div>
+
+	<div class="myMenu mt15 b_tb">
+		<ul>
+			</ul>
+	</div>
+	<div class="myBtn p15 f16 tc">
+			<a href="login.htm" style="display: block;"
+				class="login dis" id="nologinButton">登录</a>
+		</div>
+	<!-- 底部 -->
+
+	<div class="footer pt15 pb15 clearfix">
+	<div class="tc rl clearfix">
+		<span><a href="login.htm" id="bottomLoginLink" class="link-green">登录</a></span>
+			<span><a href="reg.htm"  id="bottomRegLink" class="link-green">注册</a></span>
+		<span>城市：<a href="javascript:void(0)" id="bottomPosCity" class="link-green">镇江市</a></span>
+	</div>
+	<div class="mt10 tc ab link-grey">
+		<a href="list.htm"  class="link-green" id="foothead">找兼职</a>|
+		<a href="usercenter.htm"  id="footsecond" class="link-green">我的</a>| 
+		<a href="about.htm" id="footforth" class="link-green">关于我们</a>
+	</div>
+	<div class="copyright tc pb10 f12">
+		<span>找兼职？上兼职么</span>
+	</div>
+	<p class="tc mt5 f12 link-grey">@jzme.cn</p>
+</div>
+<a href="javascript:void(0)" id="roll_top" class="backTop" style="display: none;"></a>
+<script src="goTop.js-var=1440769280884" ></script>
+<script>	
+	var re = new RegExp("job/list");
+	var isJobList = re.test(window.location.href);
+	if (isJobList) {
+		$("#foothead").attr("href", "/");
+		$("#foothead").text("首页");
+	}
+	
+	var reCenter = new RegExp("user/usercenter");
+	var isCenter = reCenter.test(window.location.href);
+	if (isCenter) {		
+		$("#foothead").attr("href", "/");
+		$("#foothead").text("首页");
+		
+		$("#footsecond").attr("href", "/job/list?page=1");
+		$("#footsecond").text("找兼职");
+	}
+	
+	var reAbout = new RegExp("system/about");
+	var isAbout = reAbout.test(window.location.href);
+	if (isAbout) {
+		
+		$("#foothead").attr("href", "/");
+		$("#foothead").text("首页");
+		
+		$("#footsecond").attr("href", "/job/list?page=1");
+		$("#footsecond").text("找兼职");
+		
+		$("#footthird").attr("href", "/user/usercenter");
+		$("#footthird").text("我的");
+		
+		$("#footforth").attr("href", "/system/studentapp");
+		$("#footforth").text("下载app");
+	}	
+</script>
+<script type="text/javascript"
+		src="jweixin-1.0.0.js-var=1440769280884" >
+		
+	</script>
+	<script type="text/javascript">
+function checkURL(URL){
+	var str=URL;
+	var Expression=/^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+	var objExp=new RegExp(Expression);
+	if(objExp.test(str)==true){
+	return true;
+		}else{
+		return false;
+		}
+	} 
+</script>
+
+
+	<script type="text/javascript">
+		
+		wx.error(function(res){
+			var error = "";
+			for(var o in res)
+			{
+				error += "   "+o+":"+res[o];
+			}
+		});
+		
+		wx.error(function(res){
+			
+			//alert("res:"+res);
+			
+		})
+			
+		
+		wx.config({
+			debug : false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			appId : 'wx477e9b42683c21e6', // 必填，公众号的唯一标识
+			timestamp : '1441002574', // 必填，生成签名的时间戳
+			nonceStr : '08fa22db8e81405fb', // 必填，生成签名的随机串
+			signature : '109978d31df2856dd6d84f645f17d27c8cc9daba',// 必填，签名，见附录1
+			jsApiList : [ 'onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','startRecord','stopRecord','onVoiceRecordEnd','playVoice','pauseVoice','stopVoice','onVoicePlayEnd','uploadVoice','downloadVoice','chooseImage','previewImage','uploadImage','downloadImage','translateVoice','getNetworkType','openLocation','getLocation','hideOptionMenu','showOptionMenu','hideMenuItems','showMenuItems','hideAllNonBaseMenuItem','showAllNonBaseMenuItem','closeWindow','scanQRCode','chooseWXPay','openProductSpecificView','addCard','chooseCard','openCard' ]
+		});
+		wx.ready(function(res) {
+			$("#scan2codeli").css("display","");
+		});
+		
+		function scan2code() {
+
+			try 
+			{ 
+			
+			wx.scanQRCode({
+				needResult : 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+				scanType : [ "qrCode", "barCode" ], // 可以指定扫二维码还是一维码，默认二者都有
+				success : function(res) {
+					try 
+					{ 
+						
+						if(checkURL(res)){//二维码扫描
+							window.location.href =res ;
+							return true;
+						}
+						
+						
+						
+						
+						var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+						var obj = JSON.parse(result);
+						var sign = obj.sign;
+						if (sign != "tanlu") {
+							alert("请用'探鹿'扫描");
+							return;
+						}
+						var qrcidetype = obj.qrcodetype;
+					 
+						if (qrcidetype == "1") {// ,跳到确认签到确认页面，
+							 
+	
+							var data = obj.data;
+							var jobId = data.job;
+							// alert("jobId="+jobId);
+							var href=basePath	+ "job/checkininfo?jobid=" + jobId;
+							setTimeout(function(){
+								window.location.href =href ;
+							}, 500);
+							
+							
+	
+							// 跳转到确认签到页面，
+						} else if (qrcidetype == "2") {// 商家关注
+							 
+							var corpid = obj.corpid;
+							var url = basePath + "corp/detail?corpid=" + corpid;
+							setTimeout(function(){
+								window.location.href = url;
+							}, 500);
+							
+						}
+					}catch (e) {
+						window.location.href = res.resultStr;
+					}
+				}
+			,
+			error:function(res){
+				//alert(res);
+			}
+			
+			});
+			}catch (e) {
+				 //alert(e);
+			}
+
+		}
+		
+		
+	</script>
+
+
+
+	<!-- <script type="text/javascript">
+//判断访问终端
+var browser={
+    versions:function(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+    }(),
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+$(function($){
+	if(browser.versions.ios){ 
+		//alert("移动端");
+		$(".myPhoto .info p").css({"color":"#00F"});
+	}
+});
+</script> -->
+</body>
+</html>

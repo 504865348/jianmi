@@ -1,0 +1,236 @@
+/**
+ * by liujh
+ */
+
+var jobconsultation = {};
+jobconsultation.myScroll;
+jobconsultation.pullDownEl;
+jobconsultation.pullDownOffset;
+jobconsultation.pullUpEl;
+jobconsultation.pullUpOffset;
+jobconsultation.html = '';
+jobconsultation.jobid_consultation = 0;
+
+jobconsultation.flip={
+	/** 下拉刷新 （自定义实现此方法）	* myScroll.refresh();// 数据加载完成后，调用界面更新方法	*/	
+	pullDownAction:function(){
+		//alert("下拉刷新");
+		jobconsultation.html = '';
+		initList(jobconsultation.jobid_consultation);
+	},
+	
+	/** 滚动翻页 （自定义实现此方法） * myScroll.refresh();// 数据加载完成后，调用界面更新方法    */
+	pullUpAction:function(currpage){
+		//alert("滚动翻页");
+		if(currpage !== 1){
+			currpage = parseInt($("#currpage").val());
+		}
+		console.log("==========="+currpage);
+		$.ajax({
+			url: basePath + 'job/consultation_json',
+			data:{
+				'jobid' : jobconsultation.jobid_consultation,
+				'page' : currpage
+				},
+			dataType:'json',
+			type:'get',
+			cache:false,
+			success:function(data){
+				//alert(JSON.stringify(result));
+				//alert(result.jobconsultations[0].id);
+				
+				console.log(data);
+	        	if(data.consultations.length < 1){
+	        		$(".pullUpLabel").html("就这么多啦。");
+	        		setTimeout(function(){$(".pullUpLabel").html("");},1000);
+	        		return;
+	        	}else{
+	        		$("#wrapper").css({"display":"block"});
+	        		for(var i=0;  i<data.consultations.length; i++){
+	            		var html_answer = "";
+	            		if(typeof data.consultations[i].answer.icon != 'undefined'){
+	            			html_answer += '<li class="user_aws fr pt15" style="border-top: 1px solid #D9D9D9;">'+
+	    					                    '<img class="fl" src="'+data.consultations[i].answer.icon+'">'+
+	    					                    '<ul class="fl">'+
+	    					                        '<li class="user_li"  style="border-bottom:none;">'+
+	    					                            '<div class="user">'+
+	    					                                '<div class="username_zxTime fl">'+
+	    					                                    '<div class="username fl f16">'+data.consultations[i].answer.name+'</div>'+
+	    					                                    '<div class="zxTime f12">'+formatTime(data.consultations[i].answer.time, "yyyy-MM-dd HH:mm:ss")+'</div>'+
+	    					                                '</div>'+
+	    					                                '<span class="fr mr15 f12">回复</span>'+
+	    					                            '</div>'+
+	    					                            '<p class="mt15 mb10 f16">'+data.consultations[i].answer.content+'</p>'+
+	    					                        '</li>'+
+	    					                    '</ul>'+
+	    					                '</li>';
+	            		}
+	            	jobconsultation.html += '<li class="consultation_content w100 mt15 pb10 fl clearfix">'+
+	    		        	    '<ul>'+
+	    				            '<li class="user_ask fr pt15">'+
+	    				                '<img class="fl" src="'+data.consultations[i].question.icon+'">'+
+	    				                '<ul class="fl">'+
+	    				                    '<li class="user_li" style="border-bottom:none;">'+
+	    				                        '<div class="user">'+
+	    				                           '<div class="username_zxTime fl">'+
+	    				                                '<div class="username fl f16">'+data.consultations[i].question.phone+'</div>'+
+	    				                                '<div class="zxTime f12">'+formatTime(data.consultations[i].question.time, "yyyy-MM-dd HH:mm:ss")+'</div>'+
+	    				                            '</div>'+
+	    				                            '<span class="fr mr15 f12">咨询</span>'+
+	    				                        '</div>'+
+	    				                        '<p class="mt15 mb10 f16">'+data.consultations[i].question.content+'</p>'+
+	    				                    '</li>'+
+	    				                    html_answer+
+	    				                '</ul>'+
+	    				            '</li>'+
+	    				        '</ul>'+
+	    				    '</li>';
+	            		
+	            	}
+	            	$("#thelist").html(jobconsultation.html);
+	            	$("#currpage").val(parseInt(currpage)+1);
+	            	console.log("==========="+$("#currpage").val()+"=============");
+	            	jobconsultation.myScroll.refresh();
+	        	}
+				
+			},
+			error:function(result){	
+				alert("后台请求失败，稍后再试。。");
+				console.log(JSON.stringify(result));		
+			}
+		});
+	},
+	
+	/** 初始化iScroll控件 */
+	loaded:function(){
+		jobconsultation.pullDownEl = document.getElementById('pullDown');
+		jobconsultation.pullDownOffset = jobconsultation.pullDownEl.offsetHeight;
+		jobconsultation.pullUpEl = document.getElementById('pullUp');
+		jobconsultation.pullUpOffset = jobconsultation.pullUpEl.offsetHeight;
+		jobconsultation.myScroll = new iScroll('wrapper', {
+			scrollbarClass: 'myScrollbar',
+			/* 重要样式 */
+			useTransition: false,
+			/* 此属性不知用意，本人从true改为false */
+			topOffset: jobconsultation.pullDownOffset,
+			onRefresh: function() {
+				if (jobconsultation.pullDownEl.className.match('loading')) {
+					jobconsultation.pullDownEl.className = '';
+					jobconsultation.pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				} else if (jobconsultation.pullUpEl.className.match('loading')) {
+					jobconsultation.pullUpEl.className = '';
+					jobconsultation.pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+				}
+			},
+			onScrollMove: function() {
+				if (this.y > 5 && !jobconsultation.pullDownEl.className.match('flip')) {
+					jobconsultation.pullDownEl.className = 'flip';
+					jobconsultation.pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+					this.minScrollY = 0;
+				} else if (this.y < 5 && jobconsultation.pullDownEl.className.match('flip')) {
+					jobconsultation.pullDownEl.className = '';
+					jobconsultation.pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+					this.minScrollY = -jobconsultation.pullDownOffset;
+				} else if (this.y < (this.maxScrollY - 5) && !jobconsultation.pullUpEl.className.match('flip')) {
+					jobconsultation.pullUpEl.className = 'flip';
+					jobconsultation.pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+					this.maxScrollY = this.maxScrollY;
+				} else if (this.y > (this.maxScrollY + 5) && jobconsultation.pullUpEl.className.match('flip')) {
+					jobconsultation.pullUpEl.className = '';
+					jobconsultation.pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+					this.maxScrollY = jobconsultation.pullUpOffset;
+				}
+			},
+			onScrollEnd: function() {
+				if (jobconsultation.pullDownEl.className.match('flip')) {
+					jobconsultation.pullDownEl.className = 'loading';
+					jobconsultation.pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+					jobconsultation.flip.pullDownAction(); // Execute custom function (ajax call?)
+				} else if (jobconsultation.pullUpEl.className.match('flip')) {
+					jobconsultation.pullUpEl.className = 'loading';
+					jobconsultation.pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+					jobconsultation.flip.pullUpAction(); // Execute custom function (ajax call?)
+				}
+			}
+		});
+		setTimeout(function() {
+			document.getElementById('wrapper').style.left = '0';
+		}, 800);
+	}
+}
+
+
+function initList(jobidconsultation){
+	$(".pullUpLabel1").html("");
+	$(".pullUpLabel").html("");
+	jobconsultation.jobid_consultation = jobidconsultation;
+	$.ajax({
+        url: basePath + 'job/consultation_json',
+        data:{
+        	'jobid' : jobconsultation.jobid_consultation,
+			'page' : 1
+			},
+		dataType:'json',
+		type:'get',
+		cache:false,
+        success: function(data){
+            //alert(data.jobconsultations[0].question.content); window.location.href='http://m.tanlu.cc/resource/js/user/${basePath}jobconsultation/detail?jobconsultationid=${jobconsultation.jobconsultationinfo.jobconsultationid}'  window.location.href='http://m.tanlu.cc/resource/js/user/${basePath}jobconsultation/editjobconsultation?jobconsultationid=${jobconsultation.jobconsultationinfo.jobconsultationid}'               
+        	//alert(data.jobconsultations[0].jobconsultationinfo.name);
+        	console.log(data);
+        	if(data.consultations.length < 1){
+        		return;
+        	}else{
+        		$("#wrapper").css({"display":"block"});
+        		for(var i=0;  i<data.consultations.length; i++){
+            		var html_answer = "";
+            		if(typeof data.consultations[i].answer.icon != 'undefined'){
+            			html_answer += '<li class="user_aws fr pt15" style="border-top: 1px solid #D9D9D9;">'+
+    					                    '<img class="fl" src="'+data.consultations[i].answer.icon+'">'+
+    					                    '<ul class="fl">'+
+    					                        '<li class="user_li"  style="border-bottom:none;">'+
+    					                            '<div class="user">'+
+    					                                '<div class="username_zxTime fl">'+
+    					                                    '<div class="username fl f16">'+data.consultations[i].answer.name+'</div>'+
+    					                                    '<div class="zxTime f12">'+formatTime(data.consultations[i].answer.time, "yyyy-MM-dd HH:mm:ss")+'</div>'+
+    					                                '</div>'+
+    					                                '<span class="fr mr15 f12">回复</span>'+
+    					                            '</div>'+
+    					                            '<p class="mt15 mb10 f16">'+data.consultations[i].answer.content+'</p>'+
+    					                        '</li>'+
+    					                    '</ul>'+
+    					                '</li>';
+            		}
+            	jobconsultation.html += '<li class="consultation_content w100 mt15 pb10 fl clearfix">'+
+    		        	    '<ul>'+
+    				            '<li class="user_ask fr pt15">'+
+    				                '<img class="fl" src="'+data.consultations[i].question.icon+'">'+
+    				                '<ul class="fl">'+
+    				                    '<li class="user_li" style="border-bottom:none;">'+
+    				                        '<div class="user">'+
+    				                           '<div class="username_zxTime fl">'+
+    				                                '<div class="username fl f16">'+data.consultations[i].question.phone+'</div>'+
+    				                                '<div class="zxTime f12">'+formatTime(data.consultations[i].question.time, "yyyy-MM-dd HH:mm:ss")+'</div>'+
+    				                            '</div>'+
+    				                            '<span class="fr mr15 f12">咨询</span>'+
+    				                        '</div>'+
+    				                        '<p class="mt15 mb10 f16">'+data.consultations[i].question.content+'</p>'+
+    				                    '</li>'+
+    				                    html_answer+
+    				                '</ul>'+
+    				            '</li>'+
+    				        '</ul>'+
+    				    '</li>';
+            		
+            	}
+            	$("#thelist").html(jobconsultation.html);
+            	$("#currpage").val(2);
+            	console.log("==========="+$("#currpage").val()+"=============");
+            	jobconsultation.myScroll.refresh();
+        	}
+        },
+		error: function(data){
+			alert("后台请求失败，稍后再试。。");                  
+            return;
+        }
+    });
+}

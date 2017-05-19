@@ -1,0 +1,47 @@
+var system = {};
+/*意见与反馈*/
+system.bf = function(obj){
+	if($('#myFeedbackText').val() == ""){
+		alert("内容不能为空");
+		$('#myFeedbackText').focus();
+		return false;
+	}
+	mask.show(obj);
+	$.ajax({
+		url:basePath + 'system/submit_bf',
+		data:{'content':$('#myFeedbackText').val(),'_timestamp' : new Date().getTime()},
+		dataType:'json',
+		type:'get',
+		success:function(result){
+			mask.hide(obj);
+			alert(result.msg);
+			setTimeout(function(){
+				if(result.status == 0){
+					window.location.href = basePath + 'user/usercenter';
+				}
+			}, 2000);
+		}
+	});	
+};
+
+system.report = function(){
+	if($('#reportText').val() == ""){
+		alert("内容不能为空");
+		$('#reportText').focus();
+		return false;
+	}
+	$.ajax({
+		url:basePath + 'system/submit_report',
+		data:{'content':$('#reportText').val(),'_timestamp' : new Date().getTime()},
+		dataType:'json',
+		type:'get',
+		success:function(result){
+			alert(result.msg);
+			setTimeout(function(){
+				if(result.status == 0){
+					window.location.href = basePath + 'user/usercenter';
+				}
+			}, 2000);
+		}
+	});	
+};

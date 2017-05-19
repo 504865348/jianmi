@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jianzhi.dao.JobMapper">
+   <insert id="insertJob" parameterType="com.jianzhi.entity.Job">
+	INSERT INTO job VALUES(#{jid},#{jurl},#{title},#{jobtype},#{salary},#{personnum},#{lastnum},#{businessid},#{content},#{ask},#{endtime},#{interviewtime},#{traintime},#{worktime},#{workplace},#{gender},#{state},#{pubtime},#{area})              
+   </insert>
+   <select id="getJobsByType"  
+            resultType="com.jianzhi.entity.Job">
+           select * from  job   
+           <if  test="jobtype!=null">
+              where   jobtype=#{jobtype} 
+           </if>          
+           ORDER BY pubtime DESC  limit 10
+   </select>
+   <!-- 
+     select * from  job   where   jobtype=#{jobtype} limit 10
+    -->
+   <select id="searchJobs" resultType="com.jianzhi.entity.Job">
+     SELECT  *   FROM  job     WHERE  workplace  LIKE  "%"#{workplace}"%"
+   </select>
+   <!--根据job  获得发布该job的公司信息  -->
+   <select id="getBusinessByJobId" resultType="com.jianzhi.entity.Business">
+         SELECT  *  FROM  jo
+         - b,business  WHERE  job.businessid=business.bid  AND  job.jid=#{jid}
+   </select>
+   <select id="getJobsByJid" resultType="com.jianzhi.entity.Job">
+         SELECT  *   FROM  job     WHERE jid=#{jid}
+   </select>
+   <select id="getJobPage" parameterType="com.jianzhi.entity.Page" 
+   resultType="com.jianzhi.entity.Job">
+    SELECT  *   FROM   job ORDER BY pubtime DESC LIMIT ${currentIndex},${jianGe}
+   </select>
+   <select id="getJobUser" resultType="com.jianzhi.entity.Job">
+       SELECT  *   FROM   job j where j.jid=#{jid} and LIMIT ${currentIndex},${jianGe}
+   </select>
+    <select id="getRow" resultType="int">
+     SELECT  COUNT(*) AS hangshu from   job 
+   </select>
+   <update id="addUid" parameterType="int">
+       update job  set  lastnum=#{lastnum} where jid=#{jid}
+       
+   </update>
+   <!-- 
+     多值传参
+    -->
+   <select id="getJobsFenye" resultType="com.jianzhi.entity.Job">
+   SELECT  *   from   job j  WHERE j.businessid=#{param1} ORDER BY pubtime DESC  LIMIT ${param2},${param3}
+   </select>
+   <!--审核与驳回 -->
+   <update id="updateState" parameterType="int">
+         update  job  set  state=#{param1}  where   jid=#{param2}
+   </update>
+   <!--job  and order  -->
+   <!--  <select id="jobAndOrder" >
+    
+    </select>
+    -->
+   
+       
+</mapper>

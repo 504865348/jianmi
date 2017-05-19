@@ -1,0 +1,7 @@
+{
+  "data":
+  [
+    {"from":{"name":"xxx"},"message" : "yyy"},
+    {"from":{"name":"ppp"},"message" : "qqq"} 
+  ]
+}

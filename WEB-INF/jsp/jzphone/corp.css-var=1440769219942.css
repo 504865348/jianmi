@@ -1,0 +1,3 @@
+.sendtoo-grey{ border:none; background:#ababab;color:#fff;text-align:center; position:absolute; z-index:1; right:10px; top:8px; height:30px; padding:0 10px;line-height:30px;width:60px; }
+.sendtoo-grenn{ background:#14ae67; color:#fff; border:none; text-align:center; position:absolute; z-index:1; right:10px; top:8px; height:30px; padding:0 10px;line-height:30px;width:60px;}
+.gsinfo{ width:100%; position:relative; bottom:0; left:0; word-wrap:break-word;}

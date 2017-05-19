@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+
+<div id='wx_pic' style='margin: 0 auto; display: none;'>
+   <img src="share.jpg" />
+</div>
+<xbasehref="/"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">    
+<meta http-equiv="keywords" content="兼职,兼职么,大学生兼职网,兼职神器">
+<meta http-equiv="description" content="兼职么（jzme.cn），一个专为大学生服务的兼职平台！">
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "hm.js-e04fb976b022595f824c4a1ebb93db00"/*tpa=http://hm.baidu.com/hm.js?e04fb976b022595f824c4a1ebb93db00*/;
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>	
+<script type="text/javascript">
+var basePath = '/';
+</script>
+<link rel='icon shortcut' href='favicon.ico' />
+<link rel="stylesheet" href="common.css" type="text/css"/>
+<link rel="stylesheet" href="style.css" type="text/css"/>
+<script type="text/javascript" src="jquery.1.10.0.js-var=1440769219942"></script>
+<script type="text/javascript" src="global.js-var=1440769219942"></script>
+<script type="text/javascript" src="history.js-var=1440769219942" ></script>
+
+
+	<title>关于我们</title>
+</head>
+<body>
+	<div class="header link-green">
+  <div class="h-l"> <span class="back dis" onclick="myhistory.back()"></span> </div>
+  <div class="h-c tc f20">关于兼职么</div>
+</div>
+<div class="blank"></div>
+<div class="aboutCon">
+  <div class="aLogo tc">
+    <p><img src="logo.jpg"  width="108" height="108"></p>
+    <p class="mt15">兼职么 V1.0</p>
+  </div>
+  <div class="aMenu b_tb">
+    <ul>
+      <li><a href="about-1.htm" >关于兼职么</a></li>
+      <li><a href="about-2.htm">兼职么用户协议</a></li>
+      <li><a href="about-3.htm" >兼职么保障计划</a></li>
+      <li><a href="tel:15751005411">客服电话</a></li>
+    </ul>
+  </div>
+  <div class="footer pt15 pb15 clearfix">
+	<div class="tc rl clearfix">
+		<span><a href="login.htm"  id="bottomLoginLink" class="link-green">登录</a></span>
+			<span><a href="reg.htm"  id="bottomRegLink" class="link-green">注册</a></span>
+		<span>城市：<a href="javascript:void(0)" id="bottomPosCity" class="link-green">镇江市</a></span>
+	</div>
+	<div class="mt10 tc ab link-grey">
+		<a href="list.htm" class="link-green" id="foothead">找兼职</a>|
+		<a href="usercenter.htm" id="footsecond" class="link-green">我的</a>| 
+		<a href="about.htm"  id="footforth" class="link-green">关于我们</a>
+	</div>
+	<div class="copyright tc pb10 f12">
+		<span>找兼职？上兼职么</span>
+	</div>
+	<p class="tc mt5 f12 link-grey">@jzme.cn</p>
+</div>
+<a href="javascript:void(0)" id="roll_top" class="backTop" style="display: none;"></a>
+<script src="goTop.js-var=1440769280884" ></script>
+<script>	
+	var re = new RegExp("job/list");
+	var isJobList = re.test(window.location.href);
+	if (isJobList) {
+		$("#foothead").attr("href", "/");
+		$("#foothead").text("首页");
+	}
+	
+	var reCenter = new RegExp("user/usercenter");
+	var isCenter = reCenter.test(window.location.href);
+	if (isCenter) {		
+		$("#foothead").attr("href", "/");
+		$("#foothead").text("首页");
+		
+		$("#footsecond").attr("href", "/job/list?page=1");
+		$("#footsecond").text("找兼职");
+	}
+	
+	var reAbout = new RegExp("system/about");
+	var isAbout = reAbout.test(window.location.href);
+	if (isAbout) {
+		
+		$("#foothead").attr("href", "/");
+		$("#foothead").text("首页");
+		
+		$("#footsecond").attr("href", "/job/list?page=1");
+		$("#footsecond").text("找兼职");
+		
+		$("#footthird").attr("href", "/user/usercenter");
+		$("#footthird").text("我的");
+		
+		$("#footforth").attr("href", "/system/studentapp");
+		$("#footforth").text("下载app");
+	}	
+</script>
+<!-- <div class="footer pb5 pt5"><div class="copyright tc pb10 f12"><span>探鹿，兼职神器</span></div><p class="tc mt5 f12 link-grey">@Tanlu.cc</p></div> -->
+</body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jianzhi.dao.BusinessMapper">
+   <!-- <resultMap type="com.jianzhi.entity.Page" id="PageMap">
+          
+   
+   </resultMap> -->
+   <resultMap type="com.jianzhi.entity.Business" id="BusinessMap">
+          <id property="bid" column="bid"/>
+          <result property="username" column="username"/>
+          <result property="password" column="password"/>
+          <result property="hangshu" column="hangshu"/>
+   </resultMap>
+   
+   <insert id="insertBusiness" parameterType="com.jianzhi.entity.Business">
+           INSERT INTO Business(username,password) VALUES(#{username},#{password})
+   </insert>
+   <select id="getBusiness" parameterType="com.jianzhi.entity.Page"
+   resultType="com.jianzhi.entity.Business">
+         SELECT  *   FROM   Business LIMIT ${currentIndex},${jianGe}
+   </select>
+   <select id="login" parameterType="com.jianzhi.entity.Business"
+   resultType="com.jianzhi.entity.Business">
+        select *   from Business  where  username=#{username} and password=#{password}
+   </select>
+   <select id="getJobsByBid" resultType="com.jianzhi.entity.Job">
+          SELECT  *  FROM  job,business  WHERE  job.businessid=business.bid  AND  business.bid=#{bid}
+   </select>
+   <update id="updateBusiness" parameterType="com.jianzhi.entity.Business">
+            update business set username=#{username},password=#{password},
+            bname=#{bname}  where bid=#{bid}
+   </update>
+   <update id="updatePass" parameterType="com.jianzhi.entity.Business">
+            update business set password=#{password}
+            where bid=#{bid}
+   </update>
+  
+   <select id="getBusInfo"  resultType="com.jianzhi.entity.Business">
+      select *  from  business  where  bid=#{bid}
+   </select>
+   <!--集成  fenye -->
+   <select id="getBusFen" resultMap="BusinessMap">
+   SELECT *,COUNT(*) AS hangshu from   business 
+   </select>
+   <!-- 返回行数 -->
+   <select id="getRow">
+    SELECT  COUNT(*) AS hangshu from   business 
+   </select>
+   <update id="updateBusinessInfo" parameterType="com.jianzhi.entity.Business">
+       update business 
+       <set>
+       <if test="bname!=null">bname=#{bname},</if>
+       <if test="city!=null">city=#{city},</if>
+       <if test="area!=null">area=#{area},</if>
+       <if test="address!=null">address=#{address},</if>
+       <if test="person!=null">person=#{person},</if>
+       <if test="pertel!=null">pertel=#{pertel},</if>
+       <if test="summary!=null">summary=#{summary},</if>
+       <if test="pic1!=null">pic1=#{pic1},</if>
+       <if test="pic2!=null">pic2=#{pic2},</if>
+       <if test="pic3!=null">pic3=#{pic3}</if>
+       </set>
+       where bid=#{bid}
+      
+   </update>
+  
+   
+   
+   
+   
+   
+     
+  
+  
+    
+    
+    
+</mapper>

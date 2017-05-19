@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jianzhi.dao.OrdersMapper">
+   
+   <!-- user -->
+   <resultMap type="com.jianzhi.entity.User" id="UserMap">
+          <id property="uid" column="uid"/>
+          <result property="username" column="username"/>
+          <result property="password" column="password"/>
+          <result property="realname" column="realname"/>
+           
+   </resultMap>
+   <!--job -->
+   <resultMap type="com.jianzhi.entity.Job" id="JobMap">
+          <id property="jid" column="jid"/>
+          <result property="title" column="title"/>
+          <result property="lastnum" column="lastnum"/>
+          <result property="personnum" column="personnum"/>
+           
+   </resultMap>
+   <!--buss -->
+   <resultMap type="com.jianzhi.entity.Business" id="BusinessMap">
+          <id property="bid" column="bid"/>
+          <result property="bname" column="bname"/>
+   
+   </resultMap>
+   <!--comm -->
+   <resultMap type="com.jianzhi.entity.Comment" id="CommentMap">
+          <id property="cid" column="cid"/>
+          <result property="uid" column="uid"/>
+          <result property="state" column="cstate"/>
+   </resultMap>
+   <resultMap type="com.jianzhi.entity.Orders" id="OrderMap1">
+         <id property="oid" column="oid"/>
+         <result property="uid" column="uid"/>
+         <result property="jid" column="jid"/>
+         <result property="bid" column="bid"/>
+         <result property="state" column="state"/>  
+         <association property="comment"  resultMap="CommentMap"></association> 
+   </resultMap>
+   
+   <resultMap type="com.jianzhi.entity.Orders" id="OrderMap2">
+         <id property="oid" column="oid"/>
+         <result property="uid" column="uid"/>
+         <result property="jid" column="jid"/>
+         <result property="bid" column="bid"/>
+         <result property="state" column="state"/>  
+         <association property="user" resultMap="UserMap"></association> 
+         <association property="job" resultMap="JobMap"></association> 
+         <association property="business" resultMap="BusinessMap"></association> 
+         <collection property="comments" resultMap="CommentMap"></collection>
+   </resultMap>
+   <!-- parameterMap已废弃 -->
+   <insert id="insertOrder" parameterType="com.jianzhi.entity.Orders">
+         INSERT INTO  orders  VALUES(NULL,#{uid},#{jid},#{state},#{bid},#{applytime})
+   </insert>
+   <select id="getOrderByUid" resultMap="OrderMap1">
+      SELECT  *   FROM   orders o,user u  WHERE  o.uid=#{uid} and o.uid=u.uid 
+   </select>
+   <select id="getOrders" resultType="com.jianzhi.entity.Orders"> 
+   SELECT *   FROM   orders where oid=#{oid}
+   </select>
+   <!--resultType="com.jianzhi.entity.Orders"  -->
+   <select id="getOrderAndUser" resultMap="OrderMap2">
+    SELECT  *   FROM   orders o,user u  WHERE  o.oid=#{oid} and o.uid=u.uid
+   </select>
+   <!-- 
+      查看评论
+    -->
+   <!--  <select id="getCommentsByoid" resultMap="">
+    
+    </select> -->
+    <!-- 
+     三表查询+
+    
+     -->
+    <select id="getOrdersThree"  resultMap="OrderMap2">
+        SELECT  *   FROM  orders o,user u,business b  WHERE  o.oid=#{oid}  AND  o.uid=u.uid AND  o.bid=b.bid
+    </select>
+    <select id="getOrdersWow"  
+    parameterType="com.jianzhi.entity.Page" resultMap="OrderMap2">
+        SELECT  *   FROM  orders o,user u,business b  WHERE  o.uid=u.uid AND  o.bid=b.bid
+        LIMIT ${currentIndex},${jianGe}
+    </select>
+    <select id="getOrderPhone"  
+     resultMap="OrderMap2">
+        SELECT  *   FROM  orders o,job j,business b  WHERE  o.jid=j.jid AND  o.bid=b.bid AND o.uid=#{param1}
+        LIMIT ${param2},3
+    </select>
+    <select id="getOrdersUpdate"   resultMap="OrderMap2">
+        SELECT  *   FROM  orders o,user u,business b  WHERE  o.oid=#{oid}  AND  o.uid=u.uid 
+        AND  o.bid=b.bid LIMIT ${currentIndex},${jianGe}
+    </select>
+    <!-- 
+       谁建的表????
+     -->
+    <select id="getFour" resultMap="OrderMap2">
+      SELECT  *,c.state as cstate  FROM orders  o,user u,job j,comment c WHERE  o.oid=c.oid  AND  o.bid=#{bid} AND o.uid=u.uid AND o.jid=j.jid
+      LIMIT ${currentIndex},5
+    </select>
+    <!-- 接受用户的兼职请求 -->
+    <update id="updateState" parameterType="int">
+        update orders set state=#{state} where oid=#{oid}
+    </update>
+    <!-- 
+      一个用户对一个job只有一个评论
+     -->
+     <select id="userJobComment"  resultMap="OrderMap1">
+         SELECT  *,c.state cstate  FROM  orders  o,comment c  WHERE   o.uid=c.uid  AND  o.jid=c.jid  and  o.oid={oid}
+     </select>
+     <!-- 用户申请状态列表 -->
+     <select id="getOrderState" resultType="com.jianzhi.entity.Orders">
+        select *  from  orders where  uid=#{param1}  
+        <if test="state!=null">
+          and   state=#{param2}
+        </if>
+        LIMIT ${param3},5
+     </select>
+    
+     <select id="getShouChang" resultType="com.jianzhi.entity.Orders">
+         select *  from  orders where uid=#{param1} and state=5 
+         LIMIT ${param2},5
+     </select>
+     <!-- q -->
+     <delete id="deleteShouCang">
+          delete from orders  where oid=#{oid}
+     </delete>
+     <select id="getUidJid" resultType="com.jianzhi.entity.Orders">
+         select *  from  orders where uid=#{param1} and jid=#{param2}
+     </select>
+     <!-- jobinfamation -->
+    <select id="getOrdersjobinfamation"  resultMap="OrderMap2">
+        SELECT  *   FROM  orders o,user u,job j WHERE  o.bid=#{param1}  AND  o.uid=u.uid AND  o.jid=j.jid 
+        LIMIT ${param2},5
+    </select>
+        
+</mapper>

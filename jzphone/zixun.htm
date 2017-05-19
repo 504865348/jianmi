@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+
+<div id='wx_pic' style='margin: 0 auto; display: none;'>
+   <img src="share.jpg" />
+</div>
+<xbasehref="/"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">    
+<meta http-equiv="keywords" content="兼职,兼职么,大学生兼职网,兼职神器">
+<meta http-equiv="description" content="兼职么（jzme.cn），一个专为大学生服务的兼职平台！">
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "hm.js-e04fb976b022595f824c4a1ebb93db00"/*tpa=http://hm.baidu.com/hm.js?e04fb976b022595f824c4a1ebb93db00*/;
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>	
+<script type="text/javascript">
+var basePath = '/';
+</script>
+<link rel='icon shortcut' href='favicon.ico' />
+<link rel="stylesheet" href="common.css" type="text/css"/>
+<link rel="stylesheet" href="style.css" type="text/css"/>
+<script type="text/javascript" src="jquery.1.10.0.js-var=1440769219942"></script>
+<script type="text/javascript" src="global.js-var=1440769219942"></script>
+<script type="text/javascript" src="history.js-var=1440769219942" ></script>
+<title>职位资讯</title>
+
+
+	<script type="text/javascript" src="job.js-var=1440769219942" ></script>
+	<script type="text/javascript" src="iscroll.js-var=1440769219942" ></script>
+	<script type="text/javascript" src="jobconsultation.js-var=1440769219942" ></script>
+	<style>
+		#wrapper {position: absolute;z-index: 1;top: 0px;bottom: 2px;left: 0;width: 100%;overflow: auto; display:none;}
+		#scroller {	position: relative;	/*	-webkit-touch-callout:none;*/ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);float: left; bottom:-40px; top:0; width: 100%;padding: 0;}
+		#scroller>ul {position: relative;list-style: none; padding: 0;	margin: 0;	width: 100%;text-align: left; margin-top:15px;}
+		/* #scroller li {margin-top:15px; width:97%; float:right;} */
+		#scroller li > a {	display: block;	}
+		/* 下拉样式 Pull down styles */
+		#pullDown,#pullUp {	background: #fff;height: 35px;line-height: 35px; padding: 5px 10px;text-align:center;border-bottom: 1px solid #ccc;font-weight: bold;font-size: 14px;color: #888;}
+		#pullDown .pullDownIcon,#pullUp .pullUpIcon {display: block;float: left;width: 40px;height: 40px;background: url("pull-icon@2x-1.png")/*tpa=http://m.tanlu.cc/images/pull-icon@2x.png*/ 0 0 no-repeat;-webkit-background-size: 40px 80px;background-size: 40px 80px;-webkit-transition-property: -webkit-transform;-webkit-transition-duration: 250ms;}
+		#pullDown .pullDownIcon {-webkit-transform: rotate(0deg) translateZ(0);}
+		#pullUp .pullUpIcon {-webkit-transform: rotate(-180deg) translateZ(0);}
+		#pullDown.flip .pullDownIcon {-webkit-transform: rotate(-180deg) translateZ(0);}
+		#pullUp.flip .pullUpIcon {-webkit-transform: rotate(0deg) translateZ(0);}
+		#pullDown.loading .pullDownIcon,#pullUp.loading .pullUpIcon {background-position: 0 100%;-webkit-transform: rotate(0deg) translateZ(0);	-webkit-transition-duration: 0ms;-webkit-animation-name: loading;-webkit-animation-duration: 2s;-webkit-animation-iteration-count: infinite;-webkit-animation-timing-function: linear;}
+		@-webkit-keyframes loading {from {-webkit-transform: rotate(0deg) translateZ(0);} to {-webkit-transform: rotate(360deg) translateZ(0);}}
+	</style>
+  </head>
+ <body>
+ <div class="header link-green">
+	  <div class="h-l"> <span class="back dis" onclick="myhistory.back()"></span> </div>
+	  <div class="h-c tc f20" >职位咨询</div>
+	 <div class="h-r">
+		<a href="usercenter.htm"  class="my dis"></a>
+	  </div>
+  </div>
+<div class="blank"></div>
+<img src="nopic.png-var=1440769219942.png"  style="width: 34%; position:absolute; top:26%; left:50%;margin-left:-17%;" id="noData" />
+<input id="currpage" type="hidden" value="1" />
+<div id="wrapper">
+	<div id="scroller">
+		<div id="pullDown">
+			<!-- <span class="pullDownIcon"></span> --><span class="pullDownLabel">下拉刷新...</span>
+		</div>
+		 <ul id="thelist">
+		 	
+		 </ul>
+		 <div id="pullUp">
+			<!-- <span class="pullUpIcon"></span> --><span class="pullUpLabel1">数据加载中...</span><span class="pullUpLabel undis"></span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var jobid_consultation = "";
+		var url	= window.location.search;
+		console.log(url);
+		if(url.indexOf("?")!=-1) 
+		{ 
+		   	var str = url.substr(1); 
+		   	//alert(str);
+		    strs = str.split("&"); 
+		    var key=new Array(strs.length);
+		    var value=new Array(strs.length);
+		    for(i=0;i<strs.length;i++){ 
+			    key[i]=strs[i].split("=")[0] //例子中的 username 参数
+			    value[i]=unescape(strs[i].split("=")[1]); //例子中的 kwl  值
+		  		// 获取到参数后，向input赋值
+				//document.getElementById("input的id").value=value[i]；
+		    	//alert(key[i]+"="+value[i]);
+			    if(key[i] == "jobid"){jobid_consultation = value[i];console.log(key[i]+"="+value[i]);}
+			    
+			}
+		    
+		} 
+		
+		initList(jobid_consultation);
+		setTimeout('ShowFunction()',1000);
+	});
+	function ShowFunction(){
+		  $(".pullUpLabel1").addClass("undis");
+		  $(".pullUpLabel").removeClass("undis");
+	  }
+	//初始化绑定iScroll控件 
+	  //document.addEventListener('touchmove', function(e) {e.preventDefault();	}, false);
+	  document.addEventListener('DOMContentLoaded', jobconsultation.flip.loaded, false);
+</script>
+ </body>
+</html>

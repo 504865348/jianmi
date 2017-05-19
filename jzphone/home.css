@@ -1,0 +1,44 @@
+.like150420 ul li a {
+	height: 72px;
+}
+
+.like150420 ul li a span.type {
+	background:#14ae67;
+	padding:1px 2px;
+	color:#fff;
+	-moz-border-radius: 3px;      /* Gecko browsers */
+    -webkit-border-radius: 3px;   /* Webkit browsers */
+    border-radius:3px;            /* W3C syntax */
+    font-size:10px !important;
+}
+
+.like150420 ul li a span.labels{
+	padding:1px 2px;
+	color:#fff;
+	-moz-border-radius: 3px;      /* Gecko browsers */
+    -webkit-border-radius: 3px;   /* Webkit browsers */
+    border-radius:3px;            /* W3C syntax */
+    font-size:10px !important;
+    width: auto;
+    display: inline;
+    margin-right: 5px;
+}
+.like150420 ul li a span.labels.label1{
+	background:#f6512a;
+}
+.like150420 ul li a span.labels.label2{
+	background:#14ae67;
+}
+.like150420 ul li a span.labels.label3{
+	background:#faa41c;
+}
+.like150420 ul li a span.labels.label4{
+	background:#3db0f1;
+}
+.like150420 ul li a span.labels.label5{
+	background:#f65f5f;
+}
+.like150420 ul li a span.date {
+	background: url("calendar@2x.png")/*tpa=http://m.tanlu.cc/resource/images/m/calendar@2x.png*/ 0px 2px no-repeat;
+	background-size: 15px;
+}

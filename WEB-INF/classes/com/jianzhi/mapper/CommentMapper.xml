@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jianzhi.dao.CommentMapper">
+   <resultMap type="com.jianzhi.entity.Comment" id="CommentMap">
+      <id property="cid" column="cid"/>
+      
+      <result property="content" column="content"/>
+      <result property="time" column="time"/>
+      <association property="user" resultMap="UserMap"></association>
+   
+   </resultMap>
+   <resultMap type="com.jianzhi.entity.User" id="UserMap">
+     <id property="uid" column="uid"/>
+     <result property="realname" column="realname"/>
+   </resultMap>
+   <insert id="insertComment" parameterType="com.jianzhi.entity.Comment">
+        insert into comment values(null,#{uid},#{jid},#{bid},#{state},#{content},#{commentor},#{time})
+   </insert>
+   <!--
+   INSERT into comment VALUES(NULL,1,1,10,2,'好',0,1,'2015-09-02 18:09:35')
+   -->
+   <!-- 
+    获得订单的评论
+    -->
+    <select id="getCommentsByoid" resultType="com.jianzhi.entity.Comment">
+    
+       select  *   from   comment where oid=#{oid}
+    </select>
+    <!-- 
+      每次加载3个评论
+     -->
+     <select id="getComment3" resultType="com.jianzhi.entity.Comment" parameterType="int">
+       select *  from   comment where oid=#{oid}  limit ${currentIndex},3   
+     </select>
+     <select id="getCommentUpdate" resultType="com.jianzhi.entity.Comment">
+       select *  from   comment where oid=#{oid}  limit ${currentIndex},3   
+     </select>
+     <select id="getBusinessComment" resultMap="CommentMap">
+       
+       
+       
+       
+       SELECT *   from   comment  c,user u  WHERE  c.bid=#{bid}   AND  c.uid=u.uid limit ${currentIndex},${jianGe}
+     </select>
+     <!-- 
+      1   已评论
+      -->
+     <update id="updateComment" parameterType="com.jianzhi.entity.Comment">
+      update comment set content=#{content},state=1 where cid=#{cid}   
+     </update>
+   
+     
+  
+     
+</mapper>

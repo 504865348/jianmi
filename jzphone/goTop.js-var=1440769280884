@@ -1,0 +1,17 @@
+jQuery(function() {
+	var jq = jQuery;
+	jq('#roll_top').hide();
+	jq(window).scroll(function() {
+		if (jq(window).scrollTop() > 0) {
+			jq('#roll_top').fadeIn(400)
+		} else {
+			jq('#roll_top').fadeOut(200)
+		}
+	});
+	jq('#roll_top').click(function() {
+		jq('html,body').animate({
+			scrollTop: '0px'
+		},
+		200)
+	})
+});
